@@ -7,13 +7,18 @@ function reducer(state = defaultStore, action) {
             return {
                 ...state,
                 isLoggedIn: true,
-                userData: action.payload.user,
                 token: action.payload.token
             }
+        case 'set/userData' :
+            return {
+                ...state,
+                userData : action.payload.userData
+            }
+        default :
+            return state
     }
-    return state;
 }
 
-const store = configureStore({reducer: reducer});
+const Store = configureStore({reducer: reducer});
 
-export default store;
+export default Store;

@@ -1,16 +1,17 @@
 import axios from 'axios';
-import {getToken} from '../store/store';
+import Store from '../store/Store';
 
 
 const instance = axios.create({
-    baseURL: `http://localhost:8080/ws`,
+    baseURL: `http://localhost:8000/api`,
     timeout: 1000
   });
 
 instance.interceptors.request.use(function (config) {
-    const token = getToken();
+    const token = Store.getState().token;
+    console.log(token);
     if (token !== null) {
-        config.headers = { Authorization: 'Bearer ' + token };
+        config.headers = { Authorization: 'Bearer ' + token.token };
     }
     return config;
 }, function (error) {
