@@ -19,7 +19,6 @@ import ReadRdv from './app/components/rdv/read/ReadRdv';
 function Router () {
     const Stack = createStackNavigator();
     const isLoggedIn = Store.getState().isLoggedIn;
-    console.log(isLoggedIn);
     if(isLoggedIn) {
         return (
             <Stack.Navigator initialRouteName="Home">

@@ -3,16 +3,20 @@ import defaultStore from './initialStoreValue';
 
 function reducer(state = defaultStore, action) {
     switch(action.type) {
-        case 'connexion' :
+        case 'set/token' :
             return {
                 ...state,
-                isLoggedIn: true,
                 token: action.payload.token
             }
         case 'set/userData' :
             return {
                 ...state,
                 userData : action.payload.userData
+            }
+        case 'set/isLoggedInTrue' :
+            return {
+                ...state,
+                isLoggedIn: true
             }
         default :
             return state
