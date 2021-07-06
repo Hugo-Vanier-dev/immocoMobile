@@ -15,6 +15,7 @@ import ListProperty from './app/components/property/list/ListProperty';
 import CreateRdv from './app/components/rdv/create/CreateRdv';
 import UpdateRdv from './app/components/rdv/update/UpdateRdv';
 import ReadRdv from './app/components/rdv/read/ReadRdv';
+import Day from './app/components/dashboard/Day';
 
 function Router () {
     const Stack = createStackNavigator();
@@ -23,6 +24,7 @@ function Router () {
         return (
             <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen name="Home" component={Dashboard} />
+                <Stack.Screen name="Day" component={Day} />
                 <Stack.Screen name="Client/Create" component={CreateClient} />
                 <Stack.Screen name="Client/Update" component={UpdateClient} />
                 <Stack.Screen name="Client/Read" component={ReadClient} />

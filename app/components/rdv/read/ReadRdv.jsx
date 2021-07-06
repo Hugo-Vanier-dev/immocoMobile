@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import CardRdv from '../helpers/CardRdv'
 
-function ReadRdv () {
+function ReadRdv ({route}) {
+    
     return(
+
         <View>
-            <Text>Page de création de rdv</Text>
+            <CardRdv rdvId={route.params.rdvId} />
         </View>
     )
 }

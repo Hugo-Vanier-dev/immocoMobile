@@ -16,6 +16,13 @@ class AppointmentService {
         return instance.get(`${this.path}/users/${userId}`, {params: params});
     }
 
+    getByUserAndDate(userId, date){
+        const params = {
+            date: date
+        }
+        return instance.get(`${this.path}/users/${userId}/date`, {params: params});
+    }
+
     getByClient(clientId) {
         return instance.get(`${this.path}/clients/${clientId}`);
     }

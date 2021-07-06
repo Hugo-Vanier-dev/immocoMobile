@@ -10,7 +10,7 @@ import { flex, left } from 'styled-system';
 function Login() {
 
     const { toast } = useToast();
-    const { formState, handleSubmit, control } = useForm({
+    const { formState, handleSubmit, control, register } = useForm({
         mode: 'onTouched'
     });
     const { isSubmitted, isDirty, isValid, errors } = formState;
@@ -37,7 +37,6 @@ function Login() {
                     }
                     Store.dispatch(action2);
                     const user = Store.getState().userData;
-                    console.log(user);
                     if(user.id !== null) {
                         const action3 = {
                             type: 'set/isLoggedInTrue'
@@ -135,6 +134,7 @@ function Login() {
                 rules={{ required: {value: true, message:'Veuillez remplir votre adresse.'} }}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
+                        {...register}
                         keyboardType='email-address'
                         onBlur={onBlur}
                         onChangeText={value => onChange(value)}
@@ -151,6 +151,7 @@ function Login() {
                 rules={{ required: {value: true, message: 'Veuillez remplir le champ mot de passe.' }}}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
+                        {...register}
                         onBlur={onBlur}
                         onChangeText={value => onChange(value)}
                         value={value}
