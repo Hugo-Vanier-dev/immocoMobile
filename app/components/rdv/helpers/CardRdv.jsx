@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import AppointmentService from '../../../shared/service/Appointment.service';
 import { CommonActions } from '@react-navigation/native';
+import Toast from 'react-native-toast-message';
 
-function CardRdv({ rdvId, navigation }) {
+
+function CardRdv({ rdvId, navigation, accueil }) {
     const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octbre', 'Novembre', 'Décembre'];
-    const daysName = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
+    const daysName = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
     const [rdv, setRdv] = useState(null);
 
     useEffect(() => {
@@ -16,7 +18,18 @@ function CardRdv({ rdvId, navigation }) {
 
     function deleteRdv (){
         AppointmentService.delete(rdvId).then(res => {
-
+            if(accueil){
+                AppointmentService.getNextRdv(rdv.user.id).then(res => {
+                    setRdv(res.data);
+                })
+            }else {
+                navigation.goBack();
+            }
+            Toast.show({
+                type: 'success',
+                position: 'top',
+                text1: 'Le rendez-vous à bien été supprimer'
+            })
         })
     }
 
@@ -49,22 +62,6 @@ function CardRdv({ rdvId, navigation }) {
             justifyContent: 'space-evenly',
             padding: '4px',
         },
-        
-        button: {
-            borderRadius: '50%'
-        },
-
-        rdvUpdateButton : {
-            backgroundColor: '#38d981'
-        },
-
-        rdvSuppressionButton : {
-            backgroundColor: '#ff0000'
-        },
-
-        clientInfoButton : {
-            backgroundColor: '#1794c2'
-        }
 
     })
 
@@ -86,14 +83,17 @@ function CardRdv({ rdvId, navigation }) {
                             <Text>Adresse mail du client : {rdv.client.mail ? rdv.client.mail : ''}</Text>
                     </View>
                     <View style={styles.cardAction}>
-                        <Button onClick={() => navigation.dispatch(
+                        <Button onPress={() => navigation.dispatch(
                             CommonActions.navigate({
                                 name: 'Rdv/Update',
                                 params: {
                                     rdvId: rdv.id,
                                 }
-                            }))} style={[styles.button, styles.rdvUpdateButton]}>Modifier le rendez-vous</Button>
-                            <Button onPress={deleteRdv} style={[styles.button, styles.rdvSuppressionButton]}>Supprimer le rendez-vous</Button>
+                            }))}
+                            title="Modifier"
+                            color="#38d981" 
+                        />
+                            <Button onPress={deleteRdv} title="Supprimer" color="#ff0000" />
                     </View>
                 </View>
             }

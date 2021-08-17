@@ -4,21 +4,16 @@ import { Provider } from 'react-redux'
 import Store from './app/shared/store/Store';
 import Router from './router';
 import { NavigationContainer } from '@react-navigation/native';
-import { ThemeProvider } from 'styled-components'
-import { ToastProvider } from 'react-native-styled-toast'
-import toasterTheme from './app/shared/theme/toasterTheme';
+import Toast from 'react-native-toast-message';
 
 export default function App() {
   return (
-    <ThemeProvider theme={toasterTheme}>
-      <ToastProvider>
-        <Provider store={Store}>
-          <NavigationContainer>
-            <Router />
-          </NavigationContainer>
-        </Provider>
-      </ToastProvider>
-    </ThemeProvider>
+      <Provider store={Store}>
+        <NavigationContainer>
+          <Toast ref={(ref) => Toast.setRef(ref)} />
+          <Router />
+        </NavigationContainer>
+      </Provider>
   );
 }
 

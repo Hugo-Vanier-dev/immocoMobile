@@ -1,21 +1,20 @@
 import React from 'react';
-import { View, TextInput, Button, } from 'react-native';
-import { useForm, Controller } from 'react-hook-form';
+import { View, Button } from 'react-native';
+import { useForm } from 'react-hook-form';
 import UserService from '../../shared/service/User.service';
 import Store from '../../shared/store/Store';
-import { useToast } from 'react-native-styled-toast'
-import { flex, left } from 'styled-system';
+import Toast from 'react-native-toast-message';
+import Input from '../../shared/helper/formHelper/input';
 
 
 function Login() {
-
-    const { toast } = useToast();
-    const { formState, handleSubmit, control, register } = useForm({
+    const { formState, handleSubmit, control } = useForm({
         mode: 'onTouched'
     });
-    const { isSubmitted, isDirty, isValid, errors } = formState;
+    const { errors } = formState;
 
     const onSubmit = data => {
+        console.log(data);
         UserService.login(data).then(res => {
             const token = res.data;
             const action = {
@@ -43,124 +42,59 @@ function Login() {
                         }
                         Store.dispatch(action3);
                     }else {
-                        toast({
-                            message: 'Adresse mail ou mot de passe incorect',
-                            toastStyles:{
-                                backgroundColor: 'red'
-                            },
-                            color: 'white',
-                            iconColor: 'white',
-                            closeButtonStyles: {
-                                px: 4,
-                                bg: 'darkgrey',
-                                borderRadius: 16
-                              },
-                              closeIconColor: 'white',
-                              hideAccent: true
-                        });
+                        Toast.show({
+                            type: 'error',
+                            position: 'top',
+                            text1: 'Erreur',
+                            text2: 'Adresse mail ou mot de passe incorrect'
+                        })
                     }
                 }).catch(errors => {
                     console.log(errors);
-                    toast({
-                        message: 'Adresse mail ou mot de passe incorect',
-                        toastStyles:{
-                            backgroundColor: 'lightgreen'
-                        },
-                        color: 'white',
-                        iconColor: 'white',
-                        closeButtonStyles: {
-                            px: 4,
-                            bg: 'darkgrey',
-                            borderRadius: 16
-                          },
-                          closeIconColor: 'white',
-                          hideAccent: true
-                    });
+                    Toast.show({
+                        type: 'error',
+                        position: 'top',
+                        text1: 'Erreur',
+                        text2: 'Adresse mail ou mot de passe incorrect'
+                    })
                 })
             }else {
-                toast({
-                    message: 'Adresse mail ou mot de passe incorect',
-                    toastStyles:{
-                        backgroundColor: 'lightgreen'
-                    },
-                    color: 'white',
-                    iconColor: 'white',
-                    closeButtonStyles: {
-                        px: 4,
-                        bg: 'darkgrey',
-                        borderRadius: 16
-                      },
-                      closeIconColor: 'white',
-                      hideAccent: true
-                });
+                Toast.show({
+                    type: 'error',
+                    position: 'top',
+                    text1: 'Erreur',
+                    text2: 'Adresse mail ou mot de passe incorrect'
+                })
             }
-
         }).catch(errors => {
-            console.log(errors);
-            toast({
-                message: 'Adresse mail ou mot de passe incorect',
-                color: 'white',
-                toastStyles: {
-                    bg: 'red',
-                    borderRadius: 16,
-                    position: 'absolute',
-                    padding: '2rem',
-                    top:'5vh',
-                    width: '75vw',
-                    display: flex,
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignSelf: 'center',
-                    alignItems: 'center'
-                  },
-                  duration: 0,
-                  closeButtonStyles: {
-                    bg: 'darkgrey',
-                    borderRadius: 16
-                  },
-                  closeIconColor: 'white',
-                  hideAccent: true,
-                  hideIcon: true
-            });
+            console.log('Le toast ne fonctionne pas');
+            Toast.show({
+                type: 'error',
+                position: 'top',
+                text1: 'Erreur',
+                text2: 'Adresse mail ou mot de passe incorrect'
+            })
         })
     }
 
 
     return (
         <View>
-            <Controller
-                control={control}
+            <Input 
+                control={control} 
                 name="mail"
-                rules={{ required: {value: true, message:'Veuillez remplir votre adresse.'} }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                        {...register}
-                        keyboardType='email-address'
-                        onBlur={onBlur}
-                        onChangeText={value => onChange(value)}
-                        value={value}
-                        placeholder="JeanDupont@gmail.com"
-                    />
-                )}
+                rules={{ required: {value: true, message:'Veuillez remplir votre adresse.'} }} 
+                placeholder="JeanDupont@gmail.com" 
+                keyboardType="email-address"
             />
             {errors.mail && <span>{errors.mail.message}</span>}
-
-            <Controller
+            <Input
                 control={control}
                 name="password"
                 rules={{ required: {value: true, message: 'Veuillez remplir le champ mot de passe.' }}}
-                render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                        {...register}
-                        onBlur={onBlur}
-                        onChangeText={value => onChange(value)}
-                        value={value}
-                    />
-                )}
             />
             {errors.password && <span>{errors.password.message}</span>}
-
-            <Button title="Envoyer" /*disabled={isSubmitted || !isDirty || !isValid}*/ onPress={handleSubmit(onSubmit)} />
+            <Button title="Envoyer" onPress={handleSubmit(onSubmit)} />
         </View>
     )
 }

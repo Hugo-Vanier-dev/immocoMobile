@@ -27,6 +27,10 @@ class AppointmentService {
         return instance.get(`${this.path}/clients/${clientId}`);
     }
 
+    getNextRdv(userId){
+        return instance.get(`${this.path}/users/${userId}/next`);
+    }
+
     create(data) {
         return instance.post(`${this.path}`, data);
     }
