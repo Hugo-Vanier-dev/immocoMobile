@@ -3,11 +3,13 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import AppointmentService from '../../../shared/service/Appointment.service';
 import Store from '../../../shared/store/Store';
 import { CommonActions } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native'
 
 function Calendar({ navigation }) {
     const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octbre', 'Novembre', 'Décembre'];
     const daysName = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
     const today = new Date();
+    const isFocused = useIsFocused();
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [firstDay, setFirstDay] = useState(new Date(currentYear, currentMonth, 1));
@@ -19,7 +21,7 @@ function Calendar({ navigation }) {
             setCurrentEvents(response.data);
             setFirstDay(new Date(currentYear, currentMonth, 1));
         });
-    }, [currentMonth])
+    }, [currentMonth, isFocused])
 
     useEffect(() => {
         setCurrentWeeks(loadCalendar());

@@ -1,13 +1,11 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { View } from 'react-native';
 import CardRdv from '../helpers/CardRdv'
 
-function ReadRdv ({route}) {
-    
+function ReadRdv ({route, navigation}) {
     return(
-
         <View>
-            <CardRdv rdvId={route.params.rdvId} />
+            <CardRdv rdvId={route.params.rdvId} navigation={navigation} accueil={false} />
         </View>
     )
 }

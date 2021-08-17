@@ -3,11 +3,13 @@ import { View, Text, StyleSheet } from 'react-native';
 import AppointmentService from '../../shared/service/Appointment.service';
 import Store from '../../shared/store/Store';
 import { CommonActions } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 
 function Day ({route, navigation}) {
     const [rdvs, setRdvs] = useState([]);
     let lastRdvType = '';
     const date = route.params.date;
+    const isFocused = useIsFocused();
 
     const heureArray = ['08h00', '08h30', '09h00', '09h30', '10h00', '10h30', '11h00', '11h30', '12h00', '12h30', '13h00', '13h30', '14h00', '14h30', '15h00', '15h30', '16h00', '16h30', '17h00', '17h30', '18h00', '18h30', '19h00', '19h30', '20h00' ];
     const backgroundColors = {
@@ -26,7 +28,7 @@ function Day ({route, navigation}) {
         AppointmentService.getByUserAndDate(Store.getState().userData.id, date).then(response => {
             setRdvs(response.data);
         })
-    }, []);
+    }, [isFocused]);
 
     const styles = StyleSheet.create({
         dayContainer: {
@@ -89,9 +91,9 @@ function Day ({route, navigation}) {
                                                             Rendez-vous pris par {rdv.client.firstname} {rdv.client.lastname} 
                                                         </Text>
                                                     </View>
-                                               )                
-                                           }
-                                       })
+                                                )                
+                                            }
+                                        })
                                     }
                                 </View>
                             :
@@ -106,7 +108,7 @@ function Day ({route, navigation}) {
                                                             name: 'Rdv/Read',
                                                             params: {
                                                                 rdvId: rdv.id,
-                                                                clientId: rdv.client.id
+                                                                clientId: rdv.client.id,
                                                             }
                                                         }))} key={indexRdv} style={[{backgroundColor: setBgColor(rdv.appointment_type.value)}]}>
                                                         <Text>
