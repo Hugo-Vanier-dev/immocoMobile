@@ -10,7 +10,6 @@ export default function App() {
   return (
       <Provider store={Store}>
         <NavigationContainer>
-          <Toast ref={(ref) => Toast.setRef(ref)} />
           <Router />
         </NavigationContainer>
       </Provider>

@@ -1,18 +1,19 @@
 import React from "react";
 import { StyleSheet, Platform, View } from 'react-native';
 import { Controller } from "react-hook-form";
-import DateTimePicker from '@react-native-community/datetimepicker';
-import Input from "./input";
+import RNDateTimePicker from '@react-native-community/datetimepicker';
+import Input from "./Input";
 
 function DateTimePickerInput ({name, control, mode, getValues, setValue, style = {}, rules = {}, defaultValue = '', placeholder = null}) {
 
-    const styles = StyleSheet.create({
-        selectStyle: style
-    });
+
+    const time = Date.now().toString();
+
+    
 
     function onChangedateTime(change) {
         change();
-        setValue(name, new Date(`${getValues('datetimeDate')} ${getValues('datetimeTime')}`));
+        setValue(name, new Date(`${getValues(`${time}Date`)} ${getValues(`${time}Time`)}`));
     }
 
     if(Platform.OS === 'ios'){
@@ -21,8 +22,8 @@ function DateTimePickerInput ({name, control, mode, getValues, setValue, style =
                 control={control}
                 rules={rules}
                 name={name}
-                render={({field: {onChange, onBlur, value}}) => (
-                    <DateTimePicker
+                render={({field: {onChange, value}}) => (
+                    <RNDateTimePicker
                         mode={mode}
                         value={value}
                         onChange={onChange}
@@ -36,9 +37,9 @@ function DateTimePickerInput ({name, control, mode, getValues, setValue, style =
                 <Controller
                     control={control}
                     rules={rules}
-                    name="datetimeDate"
+                    name={`${time}Date`}
                     render={({field: {onChange, value}}) => (
-                        <DateTimePicker
+                        <RNDateTimePicker
                             mode="date"
                             value={value}
                             onChange={onChangedateTime(onChange)}
@@ -48,9 +49,9 @@ function DateTimePickerInput ({name, control, mode, getValues, setValue, style =
                 <Controller
                     control={control}
                     rules={rules}
-                    name="datetimeTime"
+                    name={`${time}Time`}
                     render={({field: {onChange, value}}) => (
-                        <DateTimePicker
+                        <RNDateTimePicker
                             mode="time"
                             value={value}
                             onChange={onChangedateTime(onChange)}
@@ -73,8 +74,8 @@ function DateTimePickerInput ({name, control, mode, getValues, setValue, style =
                 control={control}
                 rules={rules}
                 name={name}
-                render={({field: {onChange, onBlur, value}}) => (
-                    <DateTimePicker
+                render={({field: {onChange, value}}) => (
+                    <RNDateTimePicker
                         mode={mode}
                         value={value}
                         onChange={onChange}

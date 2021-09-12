@@ -3,11 +3,9 @@ import { StyleSheet } from 'react-native';
 import { Controller } from "react-hook-form";
 import RNPickerSelect from 'react-native-picker-select';
 
-function Select ({name, control, items, style = {}, rules = {}, defaultValue = '', placeholder = null}) {
+const style = {};
 
-    const styles = StyleSheet.create({
-        selectStyle: style
-    });
+function Select ({name, control, items, style = {}, rules = {}, defaultValue = '', placeholder = null}) {
 
     return (
         <Controller
@@ -27,5 +25,9 @@ function Select ({name, control, items, style = {}, rules = {}, defaultValue = '
     )
     
 }
+
+const styles = StyleSheet.create({
+    selectStyle: style
+});
 
 export default Select;

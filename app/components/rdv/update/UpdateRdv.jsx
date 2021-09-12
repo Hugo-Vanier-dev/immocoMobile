@@ -5,7 +5,7 @@ import Store from '../../../shared/store/Store';
 import AppointmentService from '../../../shared/service/Appointment.service';
 import AppointmentTypeService from '../../../shared/service/AppointmentType.service';
 import ClientService from '../../../shared/service/Client.service';
-import Input from '../../../shared/helper/formHelper/input';
+import Input from '../../../shared/helper/formHelper/Input';
 import Select from '../../../shared/helper/formHelper/Select';
 import DateTimePickerInput from '../../../shared/helper/formHelper/DateTimePickerInput';
 
@@ -88,6 +88,13 @@ function UpdateRdv ({route, navigation}) {
                     items={clients}
                 />
             }
+                <DateTimePickerInput 
+                    name="date"
+                    control={control}
+                    mode="date"
+                    getValues={getValues}
+                    setValue={setValue}
+                />
         </View>
     )
 }

@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import UserService from '../../shared/service/User.service';
 import Store from '../../shared/store/Store';
 import Toast from 'react-native-toast-message';
-import Input from '../../shared/helper/formHelper/input';
+import Input from '../../shared/helper/formHelper/Input';
 
 
 function Login() {
@@ -14,7 +14,6 @@ function Login() {
     const { errors } = formState;
 
     const onSubmit = data => {
-        console.log(data);
         UserService.login(data).then(res => {
             const token = res.data;
             const action = {

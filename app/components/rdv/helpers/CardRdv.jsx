@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import AppointmentService from '../../../shared/service/Appointment.service';
 import { CommonActions } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
+import { marginBottom } from 'styled-system';
 
 
 function CardRdv({ rdvId, navigation, accueil }) {
@@ -33,37 +34,7 @@ function CardRdv({ rdvId, navigation, accueil }) {
         })
     }
 
-    const styles = StyleSheet.create({
-        Text: {
-            fontSize: '0.75rem'
-        },
-        card: {
-            flex: 1,
-            flexDirection: 'column',
-            shadowColor: 'black',
-            shadowOpacity: '2px',
-            shadowOffset: '3px 3px'
-        },
-        cardHeader : {
-            textAlign: 'center',
-            padding: '4px',
-            borderBottomWidth: '2px',
-            borderBottomColor: 'black'
-        },
-        cardContent: {
-            textAlign: 'center',
-            padding: '4px',
-            borderBottomWidth: '2px',
-            borderBottomColor: 'black'
-        },
-        cardAction: {
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            padding: '4px',
-        },
-
-    })
+    
 
     return (
         <View style={styles.card}>
@@ -100,5 +71,41 @@ function CardRdv({ rdvId, navigation, accueil }) {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    Text: {
+        fontSize: 16
+    },
+    card: {
+        flex: 1,
+        flexDirection: 'column',
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset: {
+            width: 3,
+            height: 3
+        },
+        marginBottom: 10
+    },
+    cardHeader : {
+        textAlign: 'center',
+        padding: 4,
+        borderBottomWidth: 2,
+        borderBottomColor: 'black'
+    },
+    cardContent: {
+        textAlign: 'center',
+        padding: 4,
+        borderBottomWidth: 2,
+        borderBottomColor: 'black'
+    },
+    cardAction: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        padding: 4,
+    },
+
+})
 
 export default CardRdv;

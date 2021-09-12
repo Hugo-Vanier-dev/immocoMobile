@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import AppointmentService from '../../../shared/service/Appointment.service';
 import Store from '../../../shared/store/Store';
-import { CommonActions } from '@react-navigation/native';
-import { useIsFocused } from '@react-navigation/native'
+import { CommonActions, useIsFocused } from '@react-navigation/native';
+
 
 function Calendar({ navigation }) {
     const months = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octbre', 'Novembre', 'Décembre'];
@@ -13,7 +13,7 @@ function Calendar({ navigation }) {
     const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
     const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
     const [firstDay, setFirstDay] = useState(new Date(currentYear, currentMonth, 1));
-    const [weeks, setCurrentWeeks] = useState();
+    const [weeks, setCurrentWeeks] = useState(null);
     const [events, setCurrentEvents] = useState([]);
 
     useEffect(() => {
@@ -137,53 +137,7 @@ function Calendar({ navigation }) {
     }
 
 
-    const styles = StyleSheet.create({
-        headerRow: {
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-        },
-
-        calendarContainer: {
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'space-between'
-        },
-
-        dayNameRow: {
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between'
-        },
-
-        daysRow: {
-            flex: 1,
-            flexDirection: 'row',
-            justifyContent: 'space-between'
-        },
-
-        cell: {
-            flex: 1 / 7,
-            borderColor: 'black',
-            textAlign: 'center'
-        },
-
-        isNotInMonth: {
-            opacity: 0.5
-        },
-
-        today: {
-            backgroundColor: 'blue'
-        },
-
-        inexistent: {
-            opacity: 0
-        },
-        event: {
-            backgroundColor: 'red'
-        }
-
-    })
+    
 
     return (
         <View>
@@ -191,14 +145,14 @@ function Calendar({ navigation }) {
                 <Button
                     onPress={precedingMonth}
                     title="<"
-                    color="black"
+                    style={styles.headerButton}
                     accessibilityLabel="Mois précédent"
                 />
                 <Text>{months[currentMonth]} {currentYear.toString()}</Text>
                 <Button
                     onPress={nextMonth}
                     title=">"
-                    color="black"
+                    style={styles.headerButton}
                     accessibilityLabel="Mois précédent"
                 />
             </View>
@@ -242,5 +196,56 @@ function Calendar({ navigation }) {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    headerRow: {
+        flex:   0.15,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+    },
+
+    headerButton : {
+        color: 'black'
+    },
+
+    calendarContainer: {
+        flex: 0.85,
+        justifyContent: 'space-between'
+    },
+
+    dayNameRow: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+
+    daysRow: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+
+    cell: {
+        flex: 1,
+        borderColor: 'black',
+        textAlign: 'center'
+    },
+
+    isNotInMonth: {
+        opacity: 0.5
+    },
+
+    today: {
+        backgroundColor: 'blue'
+    },
+
+    inexistent: {
+        opacity: 0
+    },
+    event: {
+        backgroundColor: 'red'
+    }
+
+})
 
 export default Calendar;

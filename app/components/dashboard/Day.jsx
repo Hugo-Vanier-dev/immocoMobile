@@ -30,35 +30,7 @@ function Day ({route, navigation}) {
         })
     }, [isFocused]);
 
-    const styles = StyleSheet.create({
-        dayContainer: {
-            flex: 1,
-            flexDirection: 'column',        
-        },  
-
-        heureContainer : {
-            flex: 1,
-            flexDirection: 'row',
-        },
-
-        fullHour: {
-            flex: 1,
-            borderTopColor: 'black',
-            borderTopWidth: '2px',
-            paddingTop: '4px',
-            paddingBottom: '4px'
-        },
-
-        halfHour: {
-            flex: 1,
-            borderTopColor: 'black',
-            borderTopWidth: '1px',
-            paddingTop: '4px',
-            paddingBottom: '4px'
-        }
-        
-
-    });
+    
 
     function setBgColor(appointmentType) {
         const color = appointmentType === lastRdvType ? backgroundColors[appointmentType][0] : backgroundColors[appointmentType][1];
@@ -127,5 +99,35 @@ function Day ({route, navigation}) {
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    dayContainer: {
+        flex: 1,
+        flexDirection: 'column',        
+    },  
+
+    heureContainer : {
+        flex: 1,
+        flexDirection: 'row',
+    },
+
+    fullHour: {
+        flex: 1,
+        borderTopColor: 'black',
+        borderTopWidth: 2,
+        paddingTop: 4,
+        paddingBottom: 4
+    },
+
+    halfHour: {
+        flex: 1,
+        borderTopColor: 'black',
+        borderTopWidth: 1,
+        paddingTop: 4,
+        paddingBottom: 4
+    }
+    
+
+});
 
 export default Day;

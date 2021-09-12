@@ -3,7 +3,7 @@ import Store from '../store/Store';
 
 
 const instance = axios.create({
-    baseURL: `http://localhost:8000/api`,
+    baseURL: `https://fierce-cove-97875.herokuapp.com/api`,
     timeout: 1000
   });
 
