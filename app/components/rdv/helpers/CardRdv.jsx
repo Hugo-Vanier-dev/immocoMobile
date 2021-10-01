@@ -14,6 +14,7 @@ function CardRdv({ rdvId, navigation, accueil }) {
     useEffect(() => {
         AppointmentService.get(rdvId).then(res => {
             setRdv(res.data);
+            console.log(rdv);
         })
     }, [])
 

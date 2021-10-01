@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Button } from 'react-native';
 import { useForm } from 'react-hook-form';
-import UserService from '../../shared/service/User.service';
+import AuthService from '../../shared/service/Auth.service';
 import Store from '../../shared/store/Store';
 import Toast from 'react-native-toast-message';
 import Input from '../../shared/helper/formHelper/Input';
@@ -14,7 +14,7 @@ function Login() {
     const { errors } = formState;
 
     const onSubmit = data => {
-        UserService.login(data).then(res => {
+        AuthService.login(data).then(res => {
             const token = res.data;
             const action = {
                 type: 'set/token',
@@ -25,7 +25,7 @@ function Login() {
             Store.dispatch(action);
             const connexionToken = Store.getState().token;
             if (connexionToken) {
-                UserService.getMe().then(res => {
+                AuthService.getMe().then(res => {
                     const userData = res.data;
                     const action2 = {
                         type: 'set/userData',

@@ -4,13 +4,6 @@ class UserService {
 
     path = '/users';
 
-    login(data) {
-        return instance.post(`${this.path}/login`, data);
-    }
-
-    /*logout() {
-        return instance.get(`${this.path}/logout`).then(() => localStorage.removeItem('user'));
-    }*/
 
     getAll() {
         return instance.get(`${this.path}`);
@@ -18,10 +11,6 @@ class UserService {
 
     get(id) {
         return instance.get(`${this.path}/${id}`);
-    }
-
-    getMe(){
-        return instance.get(`${this.path}/me`);
     }
 
     create(data) {
