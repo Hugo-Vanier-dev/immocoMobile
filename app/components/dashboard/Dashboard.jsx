@@ -55,14 +55,16 @@ const styles = StyleSheet.create({
 
     rdvContainer: {
         flex: 1,
-        justifyContent: 'space-evenly',
+        justifyContent: 'center',
         alignItems: 'center',
-        maxHeight: Dimensions.get('screen').height * 3 / 4
+        // maxHeight: Dimensions.get('screen').height * 3 / 4
     },
 
     rdvTitle: {
         fontWeight: 'bold',
-        fontSize: 32
+        fontSize:24,
+        alignItems:'center',
+        justifyContent:'center',
     }
 })
 
