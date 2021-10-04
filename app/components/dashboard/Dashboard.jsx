@@ -41,12 +41,16 @@ function Dashboard({ navigation }) {
 const styles = StyleSheet.create({
     dashboardContainer: {
         flex: 1,
-        paddingHorizontal: 20,
+        backgroundColor: 'rgb(250,250,250)',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
 
     calendar: {
         flex: 1,
-        maxHeight: Dimensions.get('screen').height * 3 / 4
+        height: 250,
+        width: '100%',
+        // maxHeight: Dimensions.get('screen').height * 3 / 4
     },
 
     rdvContainer: {

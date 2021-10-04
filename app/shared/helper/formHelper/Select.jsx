@@ -16,7 +16,7 @@ function Select ({name, control, items, style = {}, rules = {}, defaultValue = '
                 <RNPickerSelect
                     onValueChange={onChange}
                     items={items}
-                    //value={defaultValue}
+                    value={defaultValue}
                     //placeholder={placeholder}
                     //style={styles.selectStyle}
                 />
