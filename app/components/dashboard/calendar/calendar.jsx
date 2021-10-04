@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import AppointmentService from '../../../shared/service/Appointment.service';
 import Store from '../../../shared/store/Store';
 import { CommonActions, useIsFocused } from '@react-navigation/native';
+import { style } from 'styled-system';
 
 
 function Calendar({ navigation }) {
@@ -140,19 +141,17 @@ function Calendar({ navigation }) {
     
 
     return (
-        <View>
+        <View style={{height:380, width:'100%',}}>
             <View style={styles.headerRow}>
                 <Button
                     onPress={precedingMonth}
                     title="<"
-                    style={styles.headerButton}
                     accessibilityLabel="Mois précédent"
                 />
                 <Text>{months[currentMonth]} {currentYear.toString()}</Text>
                 <Button
                     onPress={nextMonth}
                     title=">"
-                    style={styles.headerButton}
                     accessibilityLabel="Mois précédent"
                 />
             </View>
@@ -199,51 +198,45 @@ function Calendar({ navigation }) {
 
 const styles = StyleSheet.create({
     headerRow: {
-        flex:   0.15,
+        flex: 0.1,
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingLeft: 10,
+        paddingRight: 10,
     },
-
-    headerButton : {
-        color: 'black'
-    },
-
     calendarContainer: {
-        flex: 0.85,
-        justifyContent: 'space-between'
+        flex: 1,
+        justifyContent: 'center'
     },
-
     dayNameRow: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-
     daysRow: {
         flex: 1,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'center',
+        alignItems: 'center',
     },
-
     cell: {
         flex: 1,
         borderColor: 'black',
         textAlign: 'center'
     },
-
     isNotInMonth: {
         opacity: 0.5
     },
-
     today: {
-        backgroundColor: 'blue'
+        backgroundColor: '#E9C8DC'
     },
-
     inexistent: {
         opacity: 0
     },
     event: {
-        backgroundColor: 'red'
+        backgroundColor: '#E9C8DC'
     }
 
 })

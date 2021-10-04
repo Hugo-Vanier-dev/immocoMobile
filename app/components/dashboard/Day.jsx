@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import AppointmentService from '../../shared/service/Appointment.service';
 import Store from '../../shared/store/Store';
 import { CommonActions } from '@react-navigation/native';
@@ -42,7 +42,7 @@ function Day ({route, navigation}) {
         <View style={styles.dayContainer}>
             {heureArray.map((heure, index) => {
                 return (
-                    <View style={styles.heureContainer} key={index}>
+                    <View style={styles.hoursContainer} key={index}>
                         <Text>{heure}</Text>
                         {heure.split('h')[1] != '30' ? 
                                 <View style={styles.fullHour}>
@@ -103,31 +103,33 @@ function Day ({route, navigation}) {
 const styles = StyleSheet.create({
     dayContainer: {
         flex: 1,
-        flexDirection: 'column',        
-    },  
-
-    heureContainer : {
+        flexDirection: 'column',
+        backgroundColor: '#fff',    
+    },
+    hoursContainer : {
         flex: 1,
         flexDirection: 'row',
+        backgroundColor: '#B9DCAE',
+        marginHorizontal:20,
+        marginVertical:3,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
     },
-
     fullHour: {
         flex: 1,
-        borderTopColor: 'black',
-        borderTopWidth: 2,
-        paddingTop: 4,
-        paddingBottom: 4
+        // borderTopColor: 'rgba(40,40,40,0.5)',
+        // borderTopWidth: 1,
+        marginHorizontal:10,
+        paddingVertical: 8,
     },
-
     halfHour: {
         flex: 1,
-        borderTopColor: 'black',
-        borderTopWidth: 1,
-        paddingTop: 4,
-        paddingBottom: 4
-    }
-    
-
+        // borderTopColor: 'rgba(40,40,40,0.2)',
+        // borderTopWidth: 1,
+        paddingTop: 5,
+        marginHorizontal:20,
+        paddingBottom: 5,
+    }    
 });
 
 export default Day;

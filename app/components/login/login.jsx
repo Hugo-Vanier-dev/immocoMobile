@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Button } from 'react-native';
+import { View, Button, StyleSheet, Image } from 'react-native';
 import { useForm } from 'react-hook-form';
 import AuthService from '../../shared/service/Auth.service';
 import Store from '../../shared/store/Store';
 import Toast from 'react-native-toast-message';
 import Input from '../../shared/helper/formHelper/Input';
+// import { styles } from 'styled-system';
 
 
 function Login() {
@@ -78,24 +79,59 @@ function Login() {
 
 
     return (
-        <View>
-            <Input 
-                control={control} 
-                name="mail"
-                rules={{ required: {value: true, message:'Veuillez remplir votre adresse.'} }} 
-                placeholder="JeanDupont@gmail.com" 
-                keyboardType="email-address"
-            />
-            {errors.mail && <span>{errors.mail.message}</span>}
-            <Input
-                control={control}
-                name="password"
-                rules={{ required: {value: true, message: 'Veuillez remplir le champ mot de passe.' }}}
-            />
-            {errors.password && <span>{errors.password.message}</span>}
-            <Button title="Envoyer" onPress={handleSubmit(onSubmit)} />
+        <View style={styles.viewBg}>
+            <Image
+                    style={styles.logo} 
+                    source={require('../../../assets/icoLogo.png')} 
+                    />
+            <View style={styles.inputContainer}>
+                <Input  
+                    style={styles.input} 
+                    control={control} 
+                    name="mail"
+                    rules={{ required: {value: true, message:'Veuillez remplir votre adresse.'} }} 
+                    placeholder="prénom.nom@immoco.fr" 
+                    keyboardType="email-address"
+                />
+                {errors.mail && <span>{errors.mail.message}</span>}
+                <Input  
+                    style={styles.input}
+                    control={control}
+                    name="password"
+                    placeholder="mot de passe" 
+                    rules={{ required: {value: true, message: 'Veuillez remplir le champ mot de passe.' }}}
+                    secureTextEntry={true}
+                    />
+                
+                {errors.password && <span>{errors.password.message}</span>}
+                <Button title="Se connecter" onPress={handleSubmit(onSubmit)} style={styles.btnEnter} />
+            </View>
         </View>
     )
 }
 
 export default Login;
+
+const styles = StyleSheet.create({
+    viewBg: {
+      flex: 1,
+      backgroundColor: 'rgb(250,250,250)',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    inputContainer:{
+        flex:1,
+        paddingHorizontal:10,
+    },
+    // btnEnter:{
+    //     color: '#B9DCAE',
+    //     borderRadius: 10,
+    //     marginVertical: 10,
+    // },
+    logo:{
+        flex: 1,
+        height: 200,
+        width: 200,
+        resizeMode: 'contain',
+    }
+  });
