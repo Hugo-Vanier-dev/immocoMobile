@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Button, } from 'react-native';
+import { View, Button, Text, } from 'react-native';
 import { useForm } from 'react-hook-form';
 import Store from '../../../shared/store/Store';
 import AppointmentService from '../../../shared/service/Appointment.service';
@@ -19,22 +19,18 @@ function UpdateRdv({ route, navigation }) {
     const { errors } = formState;
 
     const onSubmit = data => {
-        console.log(data);
         const date = new Date(data.date.getFullYear(), data.date.getMonth(), data.date.getDate(), data.time.getHours(), data.time.getMinutes(), data.time.getSeconds());
         const appointment = data;
         appointment.date = date;
         delete appointment.time;
-        console.log(appointment);
         AppointmentService.update(route.params.rdvId, appointment).then(res => {
-            console.log(res);
         })
     }
 
     useEffect(() => {
         AppointmentService.get(route.params.rdvId).then(res => {
+            res.data.date = new Date(res.data.date.replace(' ', 'T'));
             setRdv(res.data);
-            setValue('date', new Date(res.data.date));
-            setValue('time', new Date(res.data.date));
         })
     }, [])
 
@@ -80,7 +76,7 @@ function UpdateRdv({ route, navigation }) {
                     defaultValue={rdv.city}
                 />
             }
-            {errors.city && <span>{errors.city.message}</span>}
+            {errors.city && <Text>{errors.city.message}</Text>}
 
             {rdv &&
                 <Input
@@ -91,7 +87,7 @@ function UpdateRdv({ route, navigation }) {
                     defaultValue={rdv.address}
                 />
             }
-            {errors.address && <span>{errors.address.message}</span>}
+            {errors.address && <Text>{errors.address.message}</Text>}
             {
                 rdv &&
                 <Input
@@ -102,7 +98,8 @@ function UpdateRdv({ route, navigation }) {
                 />
             }
 
-            {
+            {   
+                
                 rdvTypes && rdv &&
                 <Select
                     name="appointment_type_id"
@@ -112,7 +109,7 @@ function UpdateRdv({ route, navigation }) {
                     defaultValue={rdv.appointment_type_id}
                 />
             }
-            {errors.appointment_type_id && <span>{errors.appointment_type_id.message}</span>}
+            {errors.appointment_type_id && <Text>{errors.appointment_type_id.message}</Text>}
             {
                 clients && rdv &&
                 <Select
@@ -122,25 +119,25 @@ function UpdateRdv({ route, navigation }) {
                     defaultValue={rdv.client_id}
                 />
             }
-            {errors.city && <span>{errors.city.message}</span>}
+            {errors.city && <Text>{errors.city.message}</Text>}
             {rdv &&
                 <DateTimePickerInput
                     name="date"
                     control={control}
                     mode="date"
-                    value={rdv.date}
+                    defaultValue={rdv.date}
                 />
             }
-            {errors.city && <span>{errors.city.message}</span>}
-            {rdv &&
+            {errors.city && <Text>{errors.city.message}</Text>}
+            {rdv && 
                 <DateTimePickerInput
                     name="time"
                     control={control}
                     mode="time"
-                    value={rdv.date}
+                    defaultValue={rdv.date}
                 />
             }
-            {errors.city && <span>{errors.city.message}</span>}
+            {errors.city && <Text>{errors.city.message}</Text>}
             <Button title="Envoyer" onPress={handleSubmit(onSubmit)} />
         </View>
 

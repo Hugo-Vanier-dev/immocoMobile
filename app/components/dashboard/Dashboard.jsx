@@ -15,7 +15,6 @@ function Dashboard({ navigation }) {
         AppointmentService.getNextRdv(Store.getState().userData.id).then(res => {
             setRdv(res.data);
         }).catch((error) => {
-            console.log(error);
         })
     }, [isFocused]);
 

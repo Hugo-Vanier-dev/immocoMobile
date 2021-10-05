@@ -175,9 +175,9 @@ function Calendar({ navigation }) {
                                 {
                                     week.map(day => {
                                         return (
-                                            <View onClick={() => navigation.dispatch(
+                                            <View onTouchEnd={() => navigation.dispatch(
                                                 CommonActions.navigate({
-                                                    name: 'Day',
+                                                    name: 'Journée',
                                                     params: {
                                                         date: new Date(currentYear, currentMonth, day.nombreDuJour, 12)
                                                     }

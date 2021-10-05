@@ -10,6 +10,7 @@ function Day ({route, navigation}) {
     let lastRdvType = '';
     const date = route.params.date;
     const isFocused = useIsFocused();
+    const dateHours = [];
 
     const heureArray = ['08h00', '08h30', '09h00', '09h30', '10h00', '10h30', '11h00', '11h30', '12h00', '12h30', '13h00', '13h30', '14h00', '14h30', '15h00', '15h30', '16h00', '16h30', '17h00', '17h30', '18h00', '18h30', '19h00', '19h30', '20h00' ];
     const backgroundColors = {
@@ -41,8 +42,22 @@ function Day ({route, navigation}) {
     return(
         <View style={styles.dayContainer}>
             {heureArray.map((heure, index) => {
+                const datetime = date;
+                datetime.setHours(parseInt(heure.split('h')[0]));
+                if(heure.split('h')[1] !== '30'){
+                    datetime.setMinutes(0);
+                }else {
+                    datetime.setMinutes(30);
+                }
+                dateHours.push(datetime);
                 return (
-                    <View style={styles.hoursContainer} key={index}>
+                    <View style={styles.hoursContainer} key={index} onTouchEnd={() => navigation.dispatch(
+                        CommonActions.navigate({
+                            name: 'Création de rendez-vous',
+                            params: {
+                                datetime: dateHours[index]
+                            }
+                        }))}>
                         <Text>{heure}</Text>
                         {heure.split('h')[1] != '30' ? 
                                 <View style={styles.fullHour}>
@@ -51,9 +66,9 @@ function Day ({route, navigation}) {
                                         rdvs.map((rdv, indexRdv) => {    
                                             if(new Date(rdv.date).getHours() === parseInt(heure.split('h')[0]) && new Date(rdv.date).getMinutes() < 30){                                                                                
                                                 return(
-                                                    <View onClick={() => navigation.dispatch(
+                                                    <View onTouchEnd={() => navigation.dispatch(
                                                         CommonActions.navigate({
-                                                            name: 'Rdv/Read',
+                                                            name: 'Lecture de rendez-vous',
                                                             params: {
                                                                 rdvId: rdv.id,
                                                                 clientId: rdv.client.id
@@ -75,9 +90,9 @@ function Day ({route, navigation}) {
                                         rdvs.map((rdv, indexRdv) => {
                                             if(new Date(rdv.date).getHours() === parseInt(heure.split('h')[0]) && new Date(rdv.date).getMinutes() >= 30){
                                                 return(
-                                                    <View onClick={() => navigation.dispatch(
+                                                    <View onTouchEnd={() => navigation.dispatch(
                                                         CommonActions.navigate({
-                                                            name: 'Rdv/Read',
+                                                            name: 'Lecture de rendez-vous',
                                                             params: {
                                                                 rdvId: rdv.id,
                                                                 clientId: rdv.client.id,

@@ -22,26 +22,22 @@ function Router () {
     const isLoggedIn = Store.getState().isLoggedIn;
     if(isLoggedIn) {
         return (
-            <Stack.Navigator initialRouteName="Home">
-                <Stack.Screen name="Home" component={Dashboard} />
-                <Stack.Screen name="Day" component={Day} />
-                <Stack.Screen name="Client/Create" component={CreateClient} />
-                <Stack.Screen name="Client/Update" component={UpdateClient} />
-                <Stack.Screen name="Client/Read" component={ReadClient} />
-                <Stack.Screen name="Client/List" component={ListClient} />
+            <Stack.Navigator initialRouteName="Accueil">
+                <Stack.Screen name="Accueil" component={Dashboard} />
+                <Stack.Screen name="Journée" component={Day} />
                 <Stack.Screen name="Property/Create" component={CreateProperty} />
                 <Stack.Screen name="Property/Update" component={UpdateProperty} />
                 <Stack.Screen name="Property/Read" component={ReadProperty} />
                 <Stack.Screen name="Property/List" component={ListProperty} />
-                <Stack.Screen name="Rdv/Create" component={CreateRdv} />
-                <Stack.Screen name="Rdv/Update" component={UpdateRdv} />
-                <Stack.Screen name="Rdv/Read" component={ReadRdv} />
+                <Stack.Screen name="Création de rendez-vous" component={CreateRdv} />
+                <Stack.Screen name="Modification de rendez-vous" component={UpdateRdv} />
+                <Stack.Screen name="Lecture de rendez-vous" component={ReadRdv} />
             </Stack.Navigator>    
         );
     }else {
          return (
             <Stack.Navigator>
-                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Connexion" component={Login} />
             </Stack.Navigator>
          );
     }

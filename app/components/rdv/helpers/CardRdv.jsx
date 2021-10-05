@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import AppointmentService from '../../../shared/service/Appointment.service';
 import { CommonActions } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
@@ -13,8 +13,8 @@ function CardRdv({ rdvId, navigation, accueil }) {
 
     useEffect(() => {
         AppointmentService.get(rdvId).then(res => {
+            res.data.date = res.data.date.replace(' ', 'T');
             setRdv(res.data);
-            console.log(rdv);
         })
     }, [])
 
@@ -27,11 +27,11 @@ function CardRdv({ rdvId, navigation, accueil }) {
             }else {
                 navigation.goBack();
             }
-            Toast.show({
+            /*Toast.show({
                 type: 'success',
                 position: 'top',
                 text1: 'Le rendez-vous à bien été supprimer'
-            })
+            })*/
         })
     }
 
@@ -55,17 +55,19 @@ function CardRdv({ rdvId, navigation, accueil }) {
                             <Text>Adresse mail du client : {rdv.client.mail ? rdv.client.mail : ''}</Text>
                     </View>
                     <View style={styles.cardAction}>
-                        <Button onPress={() => navigation.dispatch(
+                        <TouchableOpacity onPress={() => navigation.dispatch(
                             CommonActions.navigate({
-                                name: 'Rdv/Update',
+                                name: 'Modification de rendez-vous',
                                 params: {
                                     rdvId: rdv.id,
                                 }
                             }))}
-                            title="Modifier"
-                            color="#38d981" 
-                        />
-                            <Button onPress={deleteRdv} title="Supprimer" color="#ff0000" />
+                            style={styles.updateButton}>
+                            <Text>Modifier</Text>
+                        </TouchableOpacity> 
+                        <TouchableOpacity onPress={deleteRdv} style={styles.deleteButton}>
+                            <Text>Supprimer</Text>    
+                        </TouchableOpacity> 
                     </View>
                 </View>
             }
@@ -98,7 +100,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 4,
         borderBottomWidth: 2,
-        borderBottomColor: 'black'
+        borderBottomColor: 'black',
+        marginBottom: 5
     },
     cardAction: {
         flex: 1,
@@ -106,6 +109,16 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         padding: 4,
     },
+    updateButton: {
+        backgroundColor: "#38d981",
+        alignItems: 'center',
+        padding: 20
+    },
+    deleteButton: {
+        backgroundColor: '#ff0000',
+        alignItems: 'center',
+        padding: 20
+    }
 
 })
 

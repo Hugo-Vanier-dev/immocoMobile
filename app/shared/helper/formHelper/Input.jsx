@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 import { useController } from "react-hook-form";
 
 
-function Input ({name, control, style = {}, rules = {}, defaultValue = '', placeholder = '', keyboardType = 'default' , secureTextEntry=false}){
+function Input ({name, control, style = {}, rules = {}, defaultValue = '', placeholder = '', keyboardType = 'default' , secureTextEntry=false, pointerEvents="auto"}){
     const { field } = useController({
         control,
         defaultValue,
@@ -24,6 +24,7 @@ function Input ({name, control, style = {}, rules = {}, defaultValue = '', place
             placeholder={placeholder}
             keyboardType={keyboardType}
             secureTextEntry={secureTextEntry}
+            pointerEvents={pointerEvents}
         />
     )
 }

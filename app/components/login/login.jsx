@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button, StyleSheet, Image } from 'react-native';
+import { View, Button, StyleSheet, Image, Text } from 'react-native';
 import { useForm } from 'react-hook-form';
 import AuthService from '../../shared/service/Auth.service';
 import Store from '../../shared/store/Store';
@@ -42,38 +42,36 @@ function Login() {
                         }
                         Store.dispatch(action3);
                     }else {
-                        Toast.show({
+                        /*Toast.show({
                             type: 'error',
                             position: 'top',
                             text1: 'Erreur',
                             text2: 'Adresse mail ou mot de passe incorrect'
-                        })
+                        })*/
                     }
                 }).catch(errors => {
-                    console.log(errors);
-                    Toast.show({
+                    /*Toast.show({
                         type: 'error',
                         position: 'top',
                         text1: 'Erreur',
                         text2: 'Adresse mail ou mot de passe incorrect'
-                    })
+                    })*/
                 })
             }else {
-                Toast.show({
+                /*Toast.show({
                     type: 'error',
                     position: 'top',
                     text1: 'Erreur',
                     text2: 'Adresse mail ou mot de passe incorrect'
-                })
+                })*/
             }
         }).catch(errors => {
-            console.log('Le toast ne fonctionne pas');
-            Toast.show({
+            /*Toast.show({
                 type: 'error',
                 position: 'top',
                 text1: 'Erreur',
                 text2: 'Adresse mail ou mot de passe incorrect'
-            })
+            })*/
         })
     }
 
@@ -93,7 +91,7 @@ function Login() {
                     placeholder="prénom.nom@immoco.fr" 
                     keyboardType="email-address"
                 />
-                {errors.mail && <span>{errors.mail.message}</span>}
+                {errors.mail && <Text>{errors.mail.message}</Text>}
                 <Input  
                     style={styles.input}
                     control={control}
@@ -103,7 +101,7 @@ function Login() {
                     secureTextEntry={true}
                     />
                 
-                {errors.password && <span>{errors.password.message}</span>}
+                {errors.password && <Text>{errors.password.message}</Text>}
                 <Button title="Se connecter" onPress={handleSubmit(onSubmit)} style={styles.btnEnter} />
             </View>
         </View>
